@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone Repository') {
+            steps {
+                echo 'Pulling code from GitHub...'
+
+                git branch: 'main',
+                url: 'https://github.com/shirisha0525/jenkins-pipeline.git'
+            }
+        }
+
+        stage('Check Python') {
+            steps {
+                sh 'python --version'
+            }
+        }
+
+        stage('Run Employee Deployment') {
+            steps {
+                sh 'python employee.py'
+            }
+        }
+
+        stage('Deployment Success') {
+            steps {
+                echo 'Python deployment completed successfully!'
+            }
+        }
+    }
+}
